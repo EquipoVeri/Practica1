@@ -9,12 +9,18 @@ module Multiplier
 
 	// Output Ports
 	output ready,
-	output [15:0] product
+	output [15:0] product,
+	output sign
 );
 
 bit enable_bit;
 bit flag0_bit;
 bit flag32_bit;
+bit reset_sync;
+bit sign_bit;
+bit signOut_bit;
+bit signMultiplicand;
+bit signMultiplier;
 wire [15:0] multiplier_wire;
 wire [15:0] multiplicand_wire;
 wire [15:0] shiftRight_wire;
@@ -25,6 +31,8 @@ wire [15:0] product_log;
 wire [15:0] product_ready;
 wire [15:0] sleft_log;
 wire [15:0] sright_log;
+wire [7:0] c2Multiplicand_wire;
+wire [7:0] c2Multiplier_wire;
 
 Control control
 (
@@ -32,11 +40,35 @@ Control control
 	.reset(reset),
 	.Start(start),
 	.enable(flag32_bit),
-	.Sync_Reset(flag0_bit),
+	.Sync_Reset(reset_sync),
 	.Shot(enable_bit),
 	.flag0(flag0_bit),
 	.flag32(flag32_bit)
 );
+
+TwoComplement c2Multiplier
+(
+	.signed_input(multiplier),
+	.unsigned_output(c2Multiplier_wire),
+	.sign(signMultiplier)
+);
+
+TwoComplement c2Multiplicand
+(
+	.signed_input(multiplicand),
+	.unsigned_output(c2Multiplicand_wire),
+	.sign(signMultiplicand)
+);
+
+Sign signresult
+(
+	.enable(flag0_bit),
+	.multiplicand(signMultiplicand),
+	.multiplier(signMultiplier),
+	.sign(sign_bit)
+);
+
+
 /*
 One_Shot shot
 (
@@ -50,7 +82,7 @@ Multiplexer2to1_init mux_multiplicand
 (
 	.Selector(flag0_bit),
 	.MUX_Data0(sleft_log),
-	.MUX_Data1(multiplicand),
+	.MUX_Data1(c2Multiplicand_wire),
 	.MUX_Output(multiplicand_wire)
 );
 
@@ -58,7 +90,7 @@ Multiplexer2to1_init mux_multiplier
 (
 	.Selector(flag0_bit),
 	.MUX_Data0(sright_log),
-	.MUX_Data1(multiplier),
+	.MUX_Data1(c2Multiplier_wire),
 	.MUX_Output(multiplier_wire)
 );
 
@@ -123,12 +155,15 @@ Register_With_Sync_Reset registerReady
 (
 	.clk(clk),
 	.reset(reset),
+	.sign(sign_bit),
+	.signOut(signOut_bit),
 	.enable(flag32_bit),
 	.Sync_Reset(start),
 	.Data_Input(product_log),
 	.Data_Output(product_ready)
 );
 
+assign sign = signOut_bit;
 assign product = product_ready;
 assign ready = flag32_bit;
 

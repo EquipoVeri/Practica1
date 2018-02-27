@@ -23,6 +23,7 @@ logic [7:0] multiplicand = 0;
 logic [7:0] multiplier = 0;
 	// Output
 wire ready;
+wire sign;
 wire [15:0] product;
 
 Multiplier
@@ -37,7 +38,8 @@ DUV
 	.multiplier(multiplier),
 	// Output
 	.ready(ready),
-	.product(product)
+	.product(product),
+	.sign(sign)
 );
 
 
@@ -49,6 +51,8 @@ initial // Clock generator
 /*********************************************************/
 initial begin // reset generator
 	#0 reset = 1;
+	/*#30 reset = 0;
+	#5 reset = 1;*/
 end
 
 /*********************************************************/
@@ -76,13 +80,13 @@ initial begin // reset generator
 end
 
 initial begin 
-	#4 multiplicand = 8;
-	#50 multiplicand = 30;
+	#4 multiplicand = -8;
+	#50 multiplicand = -30;
 	
 end
 
 initial begin 
-	#4 multiplier = 12;
+	#4 multiplier = -12;
 	#50 multiplier = 4;
 end
 /*********************************************************/

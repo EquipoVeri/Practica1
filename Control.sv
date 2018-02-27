@@ -12,10 +12,9 @@ module Control
 	input reset,
 	input Start,
 	input enable,
-	input Sync_Reset,
-
 	
 	// Output Ports
+	output Sync_Reset,
 	output Shot,
 	output flag0,
 	output flag32 
@@ -24,57 +23,15 @@ module Control
 
 enum logic [1:0] {Waiting_Shot, Shot_State, Waiting_Not_Shot} state;
 logic Shot_reg;
+bit sync_reset_bit;
 wire Not_Start;
 bit MaxValue_Bit;
 bit Zero_Bit;
 
-logic [NBITS_FOR_COUNTER-1 : 0] Count_logic;
-
+logic [NBITS_FOR_COUNTER-1 : 0] Count_logic = 7'b0;
 
 assign Not_Start = Start;
 /*------------------------------------------------------------------------------------------*/
-/*Asignacion de estado*/
-/*
-always_ff@(posedge clk or negedge reset)
-begin
-	if(reset == 1'b0)
-	 if(Sync_Reset == 1'b1)
-		state <= Waiting_Shot;
-	 else
-		state <= Waiting_Not_Shot;
-	else
-		if(enable  == 1'b1) begin: Enable
-			if(Sync_Reset == 1'b1)
-				state <= Waiting_Shot;
-			else 	begin: SynchronousReset	
-				state <= Waiting_Not_Shot;
-			end: SynchronousReset
-		end: Enable
-	
-	else begin
-		case(state)
-		
-		Waiting_Shot:
-			if(Not_Start == 1'b1)
-				state <= Waiting_Not_Shot;
-				
-		Shot_State:
-			if(Not_Start == 1'b1)
-				state <= Waiting_Not_Shot;
-		
-		Waiting_Not_Shot:
-			if (Not_Start == 1'b0)
-				state <= Shot_State;	
-				
-		default:
-				state <= Waiting_Shot;
-
-		endcase
-		
-	end
-end//end always
-*/
-
 
 always_ff@(posedge clk or negedge reset)
 begin
@@ -123,8 +80,39 @@ always_comb begin
 end
 
 assign Shot = Shot_reg;
+assign Sync_Reset = sync_reset_bit;
 
 /*------------------------------------------------------------------------------------------*/
+/*
+always_ff@(posedge clk or negedge reset) begin
+	if (reset == 1'b0)
+		if(enable == 1'b1) begin
+			sync_reset_bit <= 1'b0;
+			Count_logic <= {NBITS_FOR_COUNTER{1'b0}};		
+		end
+	else begin
+		if(Shot_reg == 1'b1)
+			if(Count_logic == MAXIMUM_VALUE - 1)begin
+				Count_logic <= 0;
+				sync_reset_bit <= 1'b1;
+			end
+			else
+				Count_logic <= Count_logic + 1'b1;
+	end
+end
+
+always_ff@(posedge clk or negedge reset) begin: ThisIsARegister
+	if(reset == 1'b0) 
+		Data_logic <= {Word_Length{1'b0}};
+	else
+		if(enable == 1'b1) begin: Enable
+			if(Sync_Reset == 1'b1)
+				sync_reset_bit <= 1'b0;
+			else 	begin: SynchronousReset	
+				sync_reset_bit <= 1'b1;	
+			end: SynchronousReset
+		end: Enable
+end: ThisIsARegister*/
 
 always_ff@(posedge clk or negedge reset) begin
 	if (reset == 1'b0)
@@ -137,7 +125,6 @@ always_ff@(posedge clk or negedge reset) begin
 					Count_logic <= Count_logic + 1'b1;
 	end
 end
-
 //--------------------------------------------------------------------------------------------
 
 always_comb begin
