@@ -8,21 +8,24 @@ module Sign
 
 bit sign_bit;
 
-always_comb begin
-if(enable)begin
+always begin
+	
 		case ({multiplicand, multiplier})
 			2'b00:
-				sign_bit <= 1'b0;
+				if(enable==1'b1)
+					sign_bit <= 1'b0;
 			2'b01:
-				sign_bit <= 1'b1;
+				if(enable==1'b1)
+					sign_bit <= 1'b1;
 			2'b10:
-				sign_bit <= 1'b1;
+				if(enable==1'b1)
+					sign_bit <= 1'b1;
 			2'b11:
-				sign_bit <= 1'b0;
+				if(enable==1'b1)
+					sign_bit <= 1'b0;
 			default:
 				sign_bit <= 1'b0;
 		endcase
-end
 end
 
 assign sign = sign_bit;

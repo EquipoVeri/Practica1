@@ -34,6 +34,7 @@ wire [15:0] sright_log;
 wire [7:0] c2Multiplicand_wire;
 wire [7:0] c2Multiplier_wire;
 
+
 Control control
 (
 	.clk(clk),
@@ -46,14 +47,14 @@ Control control
 	.flag32(flag32_bit)
 );
 
-TwoComplement c2Multiplier
+TwoComplement8bits c2Multiplier
 (
 	.signed_input(multiplier),
 	.unsigned_output(c2Multiplier_wire),
 	.sign(signMultiplier)
 );
 
-TwoComplement c2Multiplicand
+TwoComplement8bits c2Multiplicand
 (
 	.signed_input(multiplicand),
 	.unsigned_output(c2Multiplicand_wire),
@@ -162,6 +163,21 @@ Register_With_Sync_Reset registerReady
 	.Data_Input(product_log),
 	.Data_Output(product_ready)
 );
+
+/*
+module DecoderBinarytoBCD
+(
+	// Input Ports
+	input [15:0] binary_input,
+	output [6:0] units,
+	output [6:0] hundreds,
+	output [6:0] tens,
+	output [6:0] onethousand,
+	output [6:0] tenthousands,
+	output sign
+	
+);*/
+
 
 assign sign = signOut_bit;
 assign product = product_ready;

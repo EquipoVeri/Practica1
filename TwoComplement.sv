@@ -1,19 +1,19 @@
 module TwoComplement
 (
 	// Input Ports
-	input [7:0] signed_input,
+	input [15:0] signed_input,
 		
-	output [7:0] unsigned_output,
+	output [15:0] unsigned_output,
 	output sign
 );
 
 logic sign_log;
-logic [7:0] input_log;
+logic [15:0] input_log;
 
 
 always_comb
 begin
-if(signed_input[7] == 1'b1)
+if(signed_input[15] == 1'b1)
 begin
 	sign_log = 1'b1 ;
 	input_log = ~signed_input + 1;

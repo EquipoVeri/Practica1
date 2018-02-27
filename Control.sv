@@ -28,7 +28,7 @@ wire Not_Start;
 bit MaxValue_Bit;
 bit Zero_Bit;
 
-logic [NBITS_FOR_COUNTER-1 : 0] Count_logic = 7'b0;
+logic [NBITS_FOR_COUNTER-1 : 0] Count_logic;
 
 assign Not_Start = Start;
 /*------------------------------------------------------------------------------------------*/
