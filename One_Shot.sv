@@ -32,21 +32,22 @@ else begin
 		
 		Waiting_Shot:
 			if(Not_Start == 1'b1)
-				state <= Shot_State;
-			else
-				state <= Waiting_Shot;
+				state <= Waiting_Not_Shot;
+			/*else 
+				state <= Waiting_Shot;*/
 				
 		Shot_State:
-				state <= Waiting_Not_Shot;
+		  if(Not_Start == 1'b1)
+				state <= Shot_State;
 		
 		Waiting_Not_Shot:
-			if (Not_Start == 1'b1)
-				state <= Waiting_Not_Shot;
+			if (Not_Start == 1'b0)
+				state <= Shot_State;
 			else 
 				state <= Waiting_Shot;
 		
 		default:
-				state <= Shot_State;
+				state <= Waiting_Shot;
 
 		endcase
 	end
@@ -58,7 +59,7 @@ begin
 	case(state)
 		Waiting_Shot: 
 			begin
-				Shot_reg=1'b1;
+				Shot_reg=1'b0;
 			end
 
 		Shot_State: 
@@ -68,13 +69,13 @@ begin
 			
 		Waiting_Not_Shot: 
 			begin
-				Shot_reg=1'b1;
+				Shot_reg=1'b0;
 			end
 
 	default: 		
-		begin 
-				Shot_reg=1'b0;
-		end
+		  begin 
+				 Shot_reg=1'b0;
+		  end
 	endcase
 end
 

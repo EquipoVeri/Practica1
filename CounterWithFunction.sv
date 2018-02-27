@@ -22,13 +22,14 @@ bit Zero_Bit;
 
 logic [NBITS_FOR_COUNTER-1 : 0] Count_logic;
 
+
 	always_ff@(posedge clk or negedge reset) begin
 		if (reset == 1'b0)
 			Count_logic <= {NBITS_FOR_COUNTER{1'b0}};
 		else begin
 				if(enable == 1'b1)
 					if(Count_logic == MAXIMUM_VALUE - 1)
-						Count_logic <= 0;
+						Count_logic <= {NBITS_FOR_COUNTER{1'b0}};
 					else
 						Count_logic <= Count_logic + 1'b1;
 		end
@@ -42,7 +43,10 @@ always_comb begin
 	else
 		Zero_Bit = 0;
 	if(Count_logic == MAXIMUM_VALUE-1)
-		MaxValue_Bit = 1; 
+		begin 
+			MaxValue_Bit = 1; 
+			/*Zero_Bit = 1;*/
+		end
 	else
 		MaxValue_Bit = 0;
 end

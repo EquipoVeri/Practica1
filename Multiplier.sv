@@ -19,6 +19,8 @@ wire [7:0] multiplier_wire;
 wire [7:0] multiplicand_wire;
 wire [7:0] shiftRight_wire;
 wire [7:0] shiftLeft_wire;
+wire [7:0] multiplicandReg_wire;
+wire [7:0] multiplierReg_wire;
 wire [7:0] zeroMultiplicand_wire;
 wire [15:0] adder_wire;
 wire [15:0] product_log;
@@ -41,6 +43,7 @@ Multiplexer2to1 mux_multiplicand
 	.MUX_Output(multiplicand_wire)
 );
 
+
 Multiplexer2to1 mux_multiplier
 (
 	.Selector(flag0_bit),
@@ -48,6 +51,7 @@ Multiplexer2to1 mux_multiplier
 	.MUX_Data1(multiplier),
 	.MUX_Output(multiplier_wire)
 );
+
 
 Multiplexer2to1 mux_zeromultiplicand
 (
@@ -57,23 +61,40 @@ Multiplexer2to1 mux_zeromultiplicand
 	.MUX_Output(zeroMultiplicand_wire)
 );
 
-
-ShiftLeftRegister shiftleft
+Register_With_Clock_Enable multiplicandReg
 (
 	.clk(clk),
 	.reset(reset),
+	.enable(enable_bit),
 	.Data_Input(multiplicand_wire), 
-	.Data_Output(shiftLeft_wire)
+	.Data_Output(multiplicandReg_wire)
 );
+/*
+ShiftLeft shiftLeft
+(
+	Data_Input(multiplicandReg_wire),
+	Data_Output(shiftLeft_wire)
+);*/
 
-ShiftRigthRegister shiftright
+assign shiftLeft_wire = multiplicandReg_wire << 1;
+
+Register_With_Clock_Enable multiplierReg
 (
 	.clk(clk),
 	.reset(reset),
+	.enable(enable_bit),
 	.Data_Input(multiplier_wire), 
-	.Data_Output(shiftRight_wire)
+	.Data_Output(multiplierReg_wire)
 );
+/*
+ShiftRigth shiftRigth
+(
+	Data_Input(multiplierReg_wire),
+	Data_Output(shiftRight_wire)
+);*/
 
+assign shiftRight_wire = multiplierReg_wire >> 1;
+/*
 AdderRegister adder
 (
 	.clk(clk),
@@ -81,11 +102,11 @@ AdderRegister adder
 	.Data_Add(product_log),
 	.Data_Input(zeroMultiplicand_wire),
 	.Data_Output(adder_wire)
-);
+);*/
 
-//assign adder_wire = product_log + zeroMultiplicand_wire;
+assign adder_wire = product_log + zeroMultiplicand_wire;
 
-CounterWithFunction counter
+CounterWithFunction control
 (
 	.clk(clk),
 	.reset(reset),
@@ -99,16 +120,17 @@ Register_With_Sync_Reset regsync
 	.clk(clk),
 	.reset(reset),
 	.enable(enable_bit),
-	.Sync_Reset(start),
+	.Sync_Reset(flag0_bit),
 	.Data_Input(adder_wire),
 	.Data_Output(product_log)
 );
 
-Register registerReady
+Register_With_Sync_Reset registerReady
 (
 	.clk(clk),
 	.reset(reset),
 	.enable(flag32_bit),
+	.Sync_Reset(flag0_bit),
 	.Data_Input(product_log),
 	.Data_Output(product_ready)
 );
