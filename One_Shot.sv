@@ -23,53 +23,46 @@ assign Not_Start = Start;
 
 always_ff@(posedge clk or negedge reset)
 begin
-
-if(reset == 1'b0) begin 
+	if(reset == 1'b0) begin 
 		state<=Waiting_Shot;
-end
-else begin
+	end
+	else begin
 		case(state)
 		
 		Waiting_Shot:
 			if(Not_Start == 1'b1)
 				state <= Waiting_Not_Shot;
+				
 		Shot_State:
 			if(Not_Start == 1'b1)
 				state <= Waiting_Not_Shot;
 		
 		Waiting_Not_Shot:
 			if (Not_Start == 1'b0)
-				state <= Shot_State;		
+				state <= Shot_State;	
+				
 		default:
 				state <= Waiting_Shot;
 
 		endcase
+		
 	end
 end//end always
 /*------------------------------------------------------------------------------------------*/
 /*Salida de control, proceso combintorio*/
-always_comb
-begin
+always_comb begin
 	case(state)
 		Waiting_Shot: 
-			begin
 				Shot_reg=1'b0;
-			end
 
 		Shot_State: 
-			begin
 				Shot_reg=1'b1;
-			end
-			
-		Waiting_Not_Shot: 
-			begin
-				Shot_reg=1'b0;
-			end
 
-	default: 		
-		begin 
+		Waiting_Not_Shot: 
 				Shot_reg=1'b0;
-		end
+	default: 		
+				Shot_reg=1'b0;
+				
 	endcase
 end
 

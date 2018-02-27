@@ -24,16 +24,25 @@ wire [15:0] adder_wire;
 wire [15:0] product_log;
 wire [15:0] product_ready;
 wire [15:0] sleft_log;
-
 wire [15:0] sright_log;
 
+Control control
+(
+	.clk(clk),
+	.reset(reset),
+	.Start(start),
+	.Shot(enable_bit),
+	.flag0(flag0_bit),
+	.flag32(flag32_bit)
+);
+/*
 One_Shot shot
 (
 	.clk(clk),
 	.reset(reset),
 	.Start(start),
 	.Shot(enable_bit)
-);
+);*/
 
 Multiplexer2to1_init mux_multiplicand
 (
@@ -88,7 +97,7 @@ AdderRegister adder
 assign sleft_log = shiftLeft_wire << 1;
 assign sright_log = shiftRight_wire >> 1;
 
-
+/*
 CounterWithFunction counter
 (
 	.clk(clk),
@@ -96,7 +105,7 @@ CounterWithFunction counter
 	.enable(enable_bit),
 	.flag0(flag0_bit),
 	.flag32(flag32_bit) 
-);
+);*/
 
 Register_With_Sync_Reset regsync
 (
