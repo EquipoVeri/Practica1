@@ -52,9 +52,13 @@ initial begin // reset generator
 end
 
 /*********************************************************/
-initial begin // reset generator
+/*initial begin // reset generator
 	#15 start = 1;
-	#18 start = 0;
+	#18 start = 0; 
+	#8 start = 1;
+	#5 start = 0;
+	#80 start = 1;
+	#5 start = 0;
 end
 
 initial begin 
@@ -63,5 +67,23 @@ initial begin
 	
 end
 
+*/
+initial begin // reset generator
+	#8 start = 1;
+	#5 start = 0;
+	#80 start = 1;
+	#5 start = 0;
+end
+
+initial begin 
+	#4 multiplicand = 8;
+	#50 multiplicand = 30;
+	
+end
+
+initial begin 
+	#4 multiplier = 12;
+	#50 multiplier = 4;
+end
 /*********************************************************/
 endmodule

@@ -31,6 +31,8 @@ Control control
 	.clk(clk),
 	.reset(reset),
 	.Start(start),
+	.enable(flag32_bit),
+	.Sync_Reset(flag0_bit),
 	.Shot(enable_bit),
 	.flag0(flag0_bit),
 	.flag32(flag32_bit)
@@ -112,16 +114,17 @@ Register_With_Sync_Reset regsync
 	.clk(clk),
 	.reset(reset),
 	.enable(enable_bit),
-	.Sync_Reset(start),
+	.Sync_Reset(flag0_bit),
 	.Data_Input(adder_wire),
 	.Data_Output(product_log)
 );
 
-Register registerReady
+Register_With_Sync_Reset registerReady
 (
 	.clk(clk),
 	.reset(reset),
 	.enable(flag32_bit),
+	.Sync_Reset(start),
 	.Data_Input(product_log),
 	.Data_Output(product_ready)
 );

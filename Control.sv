@@ -11,6 +11,8 @@ module Control
 	input clk,
 	input reset,
 	input Start,
+	input enable,
+	input Sync_Reset,
 
 	
 	// Output Ports
@@ -32,6 +34,47 @@ logic [NBITS_FOR_COUNTER-1 : 0] Count_logic;
 assign Not_Start = Start;
 /*------------------------------------------------------------------------------------------*/
 /*Asignacion de estado*/
+/*
+always_ff@(posedge clk or negedge reset)
+begin
+	if(reset == 1'b0)
+	 if(Sync_Reset == 1'b1)
+		state <= Waiting_Shot;
+	 else
+		state <= Waiting_Not_Shot;
+	else
+		if(enable  == 1'b1) begin: Enable
+			if(Sync_Reset == 1'b1)
+				state <= Waiting_Shot;
+			else 	begin: SynchronousReset	
+				state <= Waiting_Not_Shot;
+			end: SynchronousReset
+		end: Enable
+	
+	else begin
+		case(state)
+		
+		Waiting_Shot:
+			if(Not_Start == 1'b1)
+				state <= Waiting_Not_Shot;
+				
+		Shot_State:
+			if(Not_Start == 1'b1)
+				state <= Waiting_Not_Shot;
+		
+		Waiting_Not_Shot:
+			if (Not_Start == 1'b0)
+				state <= Shot_State;	
+				
+		default:
+				state <= Waiting_Shot;
+
+		endcase
+		
+	end
+end//end always
+*/
+
 
 always_ff@(posedge clk or negedge reset)
 begin
@@ -60,6 +103,7 @@ begin
 		
 	end
 end//end always
+
 /*------------------------------------------------------------------------------------------*/
 /*Salida de control, proceso combintorio*/
 always_comb begin
