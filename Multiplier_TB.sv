@@ -4,7 +4,7 @@
 * Version:
 *	1.0
 * Author:
-*	Dr. José Luis Pizano Escalante
+*	Dr. JosÃ© Luis Pizano Escalante
 * email:
 *	luispizano@iteso.mx
 * Date:
@@ -13,35 +13,31 @@
 timeunit 10ps; //It specifies the time unit that all the delay will take in the simulation.
 timeprecision 1ps;// It specifies the resolution in the simulation.
 
-module SequentialMultiplier_TB;
-
-parameter WORD_LENGTH = 16;
+module Multiplier_TB;
 
 bit clk = 0;
 bit reset; 
 
-bit Start = 0;
-logic [WORD_LENGTH-1:0] Multiplicand = 0;
-logic [WORD_LENGTH-1:0] Multiplier = 0;
+bit start = 0;
+logic [7:0] multiplicand = 0;
+logic [7:0] multiplier = 0;
 	// Output
 wire ready;
-wire [2*WORD_LENGTH-1:0] Product;
+wire [15:0] product;
 
-SequentialMultiplier
-#(
-	.WORD_LENGTH(WORD_LENGTH)
-)
+Multiplier
+
 DUV
 (
 	// Inputs
 	.clk(clk),
 	.reset(reset),
-	.Start(Start),
-	.Multiplicand(Multiplicand),
-	.Multiplier(Multiplier),
+	.start(start),
+	.multiplicand(multiplicand),
+	.multiplier(multiplier),
 	// Output
 	.ready(ready),
-	.Product(Product)
+	.product(product)
 );
 
 
@@ -57,23 +53,15 @@ end
 
 /*********************************************************/
 initial begin // reset generator
-	#8 Start = 1;
-	#5 Start = 0;
-	#80 Start = 1;
-	#5 Start = 0;
+	#15 start = 1;
+	#18 start = 0;
 end
 
 initial begin 
-	#4 Multiplicand = 8;
-	#50 Multiplicand = 30;
+	#0 multiplicand = 127;
+	#0 multiplier = 127;
 	
 end
-
-initial begin 
-	#4 Multiplier = 12;
-	#50 Multiplier = 4;
-end
-
 
 /*********************************************************/
 endmodule

@@ -10,14 +10,14 @@
 *	01/03/2014
 ******************************************************************/
 
-module Multiplexer2to1
+module Multiplexer2to1_init
 #(
 	parameter NBits=16
 )
 (
 	input Selector,
 	input [NBits-1:0] MUX_Data0,
-	input [NBits-1:0] MUX_Data1,
+	input [7:0] MUX_Data1,
 	
 	output reg [NBits-1:0] MUX_Output
 
@@ -25,7 +25,7 @@ module Multiplexer2to1
 
 	always@(Selector,MUX_Data1,MUX_Data0) begin
 		if(Selector)
-			MUX_Output = MUX_Data1;
+			MUX_Output = {8'b0, MUX_Data1};
 		else
 			MUX_Output = MUX_Data0;
 	end

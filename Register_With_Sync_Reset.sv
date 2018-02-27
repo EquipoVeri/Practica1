@@ -11,7 +11,6 @@ module Register_With_Sync_Reset
 	input Sync_Reset,
 	input [Word_Length-1:0] Data_Input,
 
-
 	// Output Ports
 	output [Word_Length-1:0] Data_Output
 );

@@ -33,19 +33,13 @@ else begin
 		Waiting_Shot:
 			if(Not_Start == 1'b1)
 				state <= Waiting_Not_Shot;
-			/*else 
-				state <= Waiting_Shot;*/
-				
 		Shot_State:
-		  if(Not_Start == 1'b1)
-				state <= Shot_State;
+			if(Not_Start == 1'b1)
+				state <= Waiting_Not_Shot;
 		
 		Waiting_Not_Shot:
 			if (Not_Start == 1'b0)
-				state <= Shot_State;
-			else 
-				state <= Waiting_Shot;
-		
+				state <= Shot_State;		
 		default:
 				state <= Waiting_Shot;
 
@@ -73,9 +67,9 @@ begin
 			end
 
 	default: 		
-		  begin 
-				 Shot_reg=1'b0;
-		  end
+		begin 
+				Shot_reg=1'b0;
+		end
 	endcase
 end
 
