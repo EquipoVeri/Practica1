@@ -1,4 +1,20 @@
- module ShiftRigthRegister
+/******************************************************************* 
+* Name:
+*	ShiftRigthRegister.sv
+* Description:
+* 	This module is a register
+* Inputs:
+*	clk, reset, Data_Input
+* Outputs:
+* 	Data_Output
+* Versión:  
+*	1.0
+* Author: 
+*	Felipe Garcia & Diego Reyna
+* Fecha: 
+*	21/02/2018 
+*********************************************************************/
+module ShiftRigthRegister
 #(
 	parameter Word_Length = 16
 )

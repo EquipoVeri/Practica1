@@ -1,3 +1,19 @@
+/******************************************************************* 
+* Name:
+*	CounterWithFunction.sv
+* Description:
+* 	This module is the control of the system
+* Inputs:
+*	clk, reset, Start, enable
+* Outputs:
+* 	Sync_Reset, Shot, flag0, flag32
+* Versión:  
+*	1.0
+* Author: 
+*	Felipe Garcia & Diego Reyna
+* Fecha: 
+*	27/02/2018 
+*********************************************************************/
 module Control
 #(
 	// Parameter Declarations

@@ -51,27 +51,8 @@ initial // Clock generator
 /*********************************************************/
 initial begin // reset generator
 	#0 reset = 1;
-	/*#30 reset = 0;
-	#5 reset = 1;*/
 end
 
-/*********************************************************/
-/*initial begin // reset generator
-	#15 start = 1;
-	#18 start = 0; 
-	#8 start = 1;
-	#5 start = 0;
-	#80 start = 1;
-	#5 start = 0;
-end
-
-initial begin 
-	#0 multiplicand = 127;
-	#0 multiplier = 127;
-	
-end
-
-*/
 initial begin // reset generator
 	#8 start = 1;
 	#5 start = 0;

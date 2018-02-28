@@ -1,3 +1,19 @@
+/******************************************************************* 
+* Name:
+*	Sign.sv
+* Description:
+* 	This module calculate the sign ot the result
+* Inputs:
+*	enable, multiplicand, multiplier,
+* Outputs:
+* 	sign
+* Versión:  
+*	1.0
+* Author: 
+*	Felipe Garcia & Diego Reyna
+* Fecha: 
+*	27/02/2018 
+*********************************************************************/
 module Sign
 (
 	input enable,

@@ -1,3 +1,19 @@
+/******************************************************************* 
+* Name:
+*	Register_With_Clock_Enable.sv
+* Description:
+* 	This module is a register iwth a clock enable
+* Inputs:
+*	clk, reset, enable, Data_Input
+* Outputs:
+* 	Data_Output
+* Versión:  
+*	1.0
+* Author: 
+*	Felipe Garcia & Diego Reyna
+* Fecha: 
+*	21/02/2018 
+*********************************************************************/
 module Register_With_Clock_Enable
 #(
 	parameter Word_Length = 8

@@ -1,4 +1,20 @@
- module ShiftLeft
+/******************************************************************* 
+* Name:
+*	Sign.sv
+* Description:
+* 	This module realize a shift Left of the input
+* Inputs:
+*	Data_Input
+* Outputs:
+* 	Data_Output
+* Versión:  
+*	1.0
+* Author: 
+*	Felipe Garcia & Diego Reyna
+* Fecha: 
+*	25/02/2018 
+*********************************************************************/
+module ShiftLeft
 #(
 	parameter Word_Length = 8
 )

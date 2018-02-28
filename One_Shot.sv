@@ -1,4 +1,19 @@
-
+/******************************************************************* 
+* Name:
+*	One_Shot.sv
+* Description:
+* 	This module realize a shot
+* Inputs:
+*	clk,reset,Start
+* Outputs:
+* 	Shot
+* Versión:  
+*	1.0
+* Author: 
+*	Felipe Garcia & Diego Reyna
+* Fecha: 
+*	22/02/2018 
+*********************************************************************/
 module One_Shot
 (
 	// Input Ports

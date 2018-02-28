@@ -1,3 +1,19 @@
+/******************************************************************* 
+* Name:
+*	BinarytoBCD.sv
+* Description:
+* 	This module realize a convertion of Binary to Decimal
+* Inputs:
+*	binary_input
+* Outputs:
+* 	units, hundreds, tens, onethousand, tenthousands 
+* Versión:  
+*	1.0
+* Author: 
+*	Felipe Garcia & Diego Reyna
+* Fecha: 
+*	10/02/2018 
+*********************************************************************/
 module BinarytoBCD
 (
 	// Input Ports

@@ -1,3 +1,19 @@
+/******************************************************************* 
+* Name:
+*	TwoComplement.sv
+* Description:
+* 	This module realize the A2 complement of inputs that are of 15 bits
+* Inputs:
+*	signed_input
+* Outputs:
+* 	unsigned_output,sign
+* Versión:  
+*	1.0
+* Author: 
+*	Felipe Garcia & Diego Reyna
+* Fecha: 
+*	10/02/2018 
+*********************************************************************/
 module TwoComplement
 (
 	// Input Ports

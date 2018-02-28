@@ -1,3 +1,19 @@
+/******************************************************************* 
+* Name:
+*	Register_With_Sync_Reset.sv
+* Description:
+* 	This module is a register with a sync reset
+* Inputs:
+*	clk, reset, Data_Input, enable, Sync_Reset, sign,
+* Outputs:
+* 	signOut, Data_Output
+* Versión:  
+*	1.0
+* Author: 
+*	Felipe Garcia & Diego Reyna
+* Fecha: 
+*	21/02/2018 
+*********************************************************************/
 module Register_With_Sync_Reset
 #(
 	parameter Word_Length = 16

@@ -1,4 +1,20 @@
- module ShiftLeftRegister
+/******************************************************************* 
+* Name:
+*	ShiftLeftRegister.sv
+* Description:
+* 	This module is a register
+* Inputs:
+*	clk, reset, Data_Input
+* Outputs:
+* 	Data_Output
+* Versión:  
+*	1.0
+* Author: 
+*	Felipe Garcia & Diego Reyna
+* Fecha: 
+*	21/02/2018 
+*********************************************************************/
+module ShiftLeftRegister
 #(
 	parameter Word_Length = 16
 )

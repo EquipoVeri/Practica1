@@ -1,3 +1,19 @@
+/******************************************************************* 
+* Name:
+*	DecoderBinarytoBCD.sv
+* Description:
+* 	This module is a Decoder Binary to Decimal
+* Inputs:
+*	binary_input
+* Outputs:
+* 	units, hundreds, tens, onethousand, onethousand, sign
+* Versión:  
+*	1.0
+* Author: 
+*	Felipe Garcia & Diego Reyna
+* Fecha: 
+*	10/02/2018 
+*********************************************************************/
 module DecoderBinarytoBCD
 #(
 	parameter place_value = 7

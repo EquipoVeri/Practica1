@@ -1,3 +1,19 @@
+/******************************************************************* 
+* Name:
+*	CounterWithFunction.sv
+* Description:
+* 	This module is a counter with function
+* Inputs:
+*	clk,reset,enable
+* Outputs:
+* 	flag0,flag32
+* Versión:  
+*	1.0
+* Author: 
+*	Felipe Garcia & Diego Reyna
+* Fecha: 
+*	22/02/2018 
+*********************************************************************/
 module CounterWithFunction
 #(
 	// Parameter Declarations

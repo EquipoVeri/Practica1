@@ -1,3 +1,19 @@
+/******************************************************************* 
+* Name:
+*	BCDto7Segments.sv
+* Description:
+* 	This module assign the segments of the transistors
+* Inputs:
+*	in
+* Outputs:
+* 	segments
+* Versión:  
+*	1.0
+* Author: 
+*	Felipe Garcia & Diego Reyna
+* Fecha: 
+*	10/02/2018 
+*********************************************************************/
 module BCDto7Segments(
     input [3:0] in,
     output [6:0] segments // segments[6]-> a, segments[0]->g

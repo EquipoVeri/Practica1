@@ -1,3 +1,19 @@
+/******************************************************************* 
+* Name:
+*	Multiplier.sv
+* Description:
+* 	This module realize a sequential multiplier
+* Inputs:
+*	clk,reset,start,multiplier,multiplicand,
+* Outputs:
+* 	ready,product,sign
+* Versión:  
+*	1.0
+* Author: 
+*	Felipe Garcia & Diego Reyna
+* Fecha: 
+*	21/02/2018 
+*********************************************************************/
 module Multiplier
 (
 	// Input Ports
